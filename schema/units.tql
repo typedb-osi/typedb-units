@@ -1,0 +1,79 @@
+# ==============================================
+# --------------------------------------------
+# Units Schema Definition version 2
+# -------------------------------------------
+define
+    # Dimensions
+    dim_t sub attribute, value long;    # base unit: s,   time
+    dim_l sub attribute, value long;    # base unit: m,   length
+    dim_m sub attribute, value long;    # base unit: kg,  mass
+    dim_i sub attribute, value long;    # base unit: A,   current
+    dim_k sub attribute, value long;    # base unit: °C,  thermodynamic temp.
+    dim_n sub attribute, value long;    # base unit: mol, amount of substance
+    dim_j sub attribute, value long;    # base unit: cd,  luminous intensity
+    dim_r sub attribute, value long;    # base unit: rad, for radian angles
+    # Add in application specific dimensions
+
+    dimension_type sub attribute, value string,
+        owns dim_t,
+        owns dim_l,
+        owns dim_m,
+        owns dim_i,
+        owns dim_k,
+        owns dim_n,
+        owns dim_j,
+        owns dim_r;
+        # Add in application-specific dimensions
+
+    # Dimensionless quantities like a Mach number or Reynolds number has values
+    # of zero for all dimesion parts but is given a name like "reynolds." This
+    # allow types of dimensionless quantities to be distinguished
+
+    # Unit Conversion
+    c_ratio sub attribute, value double;
+    c_logbase sub attribute, value double;
+    c_offset sub attribute, value double;
+
+    # Units
+    prefix_name sub attribute, value string;
+    power_ten sub attribute, value long;
+    prefix sub attribute, value string,
+        owns prefix_name,
+        owns power_ten;
+    
+    uname sub attribute, value string;   # eg, "centimeter"
+    isCore sub attribute, value boolean; # boolean of is unit a core?
+    latex_string sub attribute, value string;   # latex string of unit
+
+    abstact_unit sub attribute, value string,
+        abstract,
+        owns uname,
+        owns prefix,
+        owns isCore,
+        owns latex_string,
+        owns c_ratio,
+        owns dimension_type,
+        plays core_conversion:core,
+        plays core_conversion:scaled;
+
+    unit sub abstact_unit;
+
+    log_unit sub abstact_unit,
+        owns c_logbase;
+
+    affine_unit sub abstact_unit,
+        owns c_offset;
+
+    # Other types of sub-units
+    # datetime_unit sub unit, ...
+    # geo_unit sub unit, ...
+
+    ## Relations ---------------------------------------------------------------
+
+    core_conversion sub relation,
+        relates core,
+        relates scaled;
+
+    # finally for the measured quantity
+    measure sub attribute, value double,
+        owns unit; # Note qkinds not imported 

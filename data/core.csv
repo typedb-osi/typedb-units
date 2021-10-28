@@ -1,0 +1,66 @@
+unit,uname,prefix,c_ratio,c_logbase,c_offset,isCore,latex_string,dimension_type
+m,metre,,1,0,0,TRUE,$m$',length
+kg,kilogram,k,1,0,0,TRUE,$kg$',mass
+s,second,,1,0,0,TRUE,$s$',time
+A,ampere,,1,0,0,TRUE,$A$',electric current
+k,kelvin,,1,0,0,TRUE,$kg$',thermodynamic temperature
+mol,mole,,1,0,0,TRUE,$mol$',amount of substance
+cd,candela,,1,0,0,TRUE,$cd$',luminous intensity
+rad,radian,,1,0,0,TRUE,$rad$',plane angle
+sr,steradian,,1,0,0,TRUE,$sr$',solid angle
+kg/kg,kg per kg,,1,0,0,TRUE,$\frac{kg}{kg}$',mass fraction composition
+m3/m3,m3 per m3,,1,0,0,TRUE,$\frac{m^3}{m^3}$',volume fraction composition
+m2,square meter,,1.00,0,0,TRUE,$m^2$',area
+m3,cubic meter,,1.00,0,0,TRUE,$m^3$',volume
+m/s,meter per second,,1.00,0,0,TRUE,$\frac{m}{s}$',speed
+m/s2,meter per second squared,,1.00,0,0,TRUE,$\frac{m}{s^2}$',acceleration
+m-1,reciprocal meter,,1.00,0,0,TRUE,$m^-1$',wave number
+kg/m3,kilogram per cubic meter,,1.00,0,0,TRUE,$\frac{kg}{m^3}$',mass density
+m3/kg,cubic meter per kilogram,,1.00,0,0,TRUE,$\frac{m^3}{kg}$',specific volume
+A/m2,ampere per square meter,,1.00,0,0,TRUE,$\frac{A}{m^2}$',current density
+A/m,ampere per meter,,1.00,0,0,TRUE,$\frac{A}{m}$',magnetic field strength
+mol/m3,mole per cubic meter,,1.00,0,0,TRUE,$\frac{mol}{m^3}$',amount-of-substance concentration
+cd/m2,candela per square meter,,1.00,0,0,TRUE,$\frac{cd}{m^2}$',luminance
+Hz,hertz,,1.00,0,0,TRUE,$Hz$',frequency
+N,newton,,1.00,0,0,TRUE,$N$',force
+Pa,pascal,,1.00,0,0,TRUE,$Pa$',"pressure, stress"
+J,joule,,1.00,0,0,TRUE,$J$',energy
+W,watt,,1.00,0,0,TRUE,$W$',"power, radiant flux"
+C,coulomb,,1.00,0,0,TRUE,$C$',"electric charge, quantity of electricity"
+V,volt,,1.00,0,0,TRUE,$V$',"electric potential difference,"
+F,farad,,1.00,0,0,TRUE,$F$',capacitance
+Omega,ohm,,1.00,0,0,TRUE,$\Omega$',electric resistance
+S,siemens,,1.00,0,0,TRUE,$S$',electric conductance
+Wb,weber,,1.00,0,0,TRUE,$Wb$',magnetic flux
+T,tesla,,1.00,0,0,TRUE,$T$',magnetic flux density
+H,henry,,1.00,0,0,TRUE,$H$',inductance
+degC,degree Celsius,,1.00,0,273.15,TRUE,$\textdegree{}C$',Celsius temperature
+lm,lumen,,1.00,0,0,TRUE,$lm$',luminous flux
+lx,lux,,1.00,0,0,TRUE,$lx$',illuminance
+Bq,becquerel,,1.00,0,0,TRUE,$Bq$',activity (of a radionuclide)
+Gy,gray,,1.00,0,0,TRUE,$Gy$',"absorbed dose, specific energy (imparted), kerma"
+Sv,sievert,,1.00,0,0,TRUE,$Sv$',dose equivalent (d)
+kat,katal,,1.00,0,0,TRUE,$kat$',catalytic activity
+Pa.s,pascal second,,1.00,0,0,TRUE,$Pa \cdot s$',dynamic viscosity
+N.m,newton meter,,1.00,0,0,TRUE,$N \cdot m$',moment of force
+N/m,newton per meter,,1.00,0,0,TRUE,$\frac{N}{m}$',surface tension
+rad/s,radian per second,,1.00,0,0,TRUE,$\frac{rad}{s}$',angular velocity
+rad/s2,radian per second squared,,1.00,0,0,TRUE,$\frac{rad}{s^2}$',angular acceleration
+W/m2,watt per square meter,,1.00,0,0,TRUE,$\frac{W}{m^2}$',"heat flux density, irradiance"
+J/K,joule per kelvin,,1.00,0,0,TRUE,$\frac{J}{K}$',"heat capacity, entropy"
+J/(kg.K),joule per kilogram kelvin,,1.00,0,0,TRUE,$\frac{J}{kg \cdot K}$',"specific heat capacity, specific entropy"
+J/kg,joule per kilogram,,1.00,0,0,TRUE,$\frac{J}{kg}$',specific energy
+W/(m.K),watt per meter kelvin,,1.00,0,0,TRUE,$\frac{W}{m \cdot K}$',thermal conductivity
+J/m3,joule per cubic meter,,1.00,0,0,TRUE,$\frac{J}{m^3}$',energy density
+V/m,volt per meter,,1.00,0,0,TRUE,$\frac{V}{M}$',electric field strength
+C/m3,coulomb per cubic meter,,1.00,0,0,TRUE,$\frac{C}{m^3}$',electric charge density
+C/m2,coulomb per square meter,,1.00,0,0,TRUE,$\frac{C}{m^2}$',electric flux density
+F/m,farad per meter,,1.00,0,0,TRUE,$\frac{F}{m}$',permittivity
+H/m,henry per meter,,1.00,0,0,TRUE,$\frac{H}{m}$',permeability
+J/mol,joule per mole,,1.00,0,0,TRUE,$\frac{J}{mol}$',molar energy
+J/(mol.K),joule per mole kelvin,,1.00,0,0,TRUE,$\frac{J}{mol \cdot K)}$',"molar entropy, molar heat capacity"
+C/kg,coulomb per kilogram,,1.00,0,0,TRUE,$\frac{C}{kg}$',exposure (x-rays and gamma rays)
+Gy/s,gray per second,,1.00,0,0,TRUE,$\frac{Gy}{s}$',absorbed dose rate
+W/sr,watt per steradian,,1.00,0,0,TRUE,$\frac{W}{m^ \cdot W/sr}$',radiant intensity
+W/(m2.sr),watt per square meter steradian,,1.00,0,0,TRUE,$\frac{W}{m^2 \cdot sr)}$',radiance
+kat/m3,katal per cubic meter,,1.00,0,0,TRUE,$\frac{kat}{m^3}$',catalytic (activity) concentration

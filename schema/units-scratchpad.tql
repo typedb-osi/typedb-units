@@ -1,0 +1,184 @@
+#==========================================
+#---------------------------------------------
+# 1. Start with Example Usage
+# Assume units are imported before data
+# 1.A: BAsic
+match   
+    $c isa car, has torque $t;
+    $t > 1200; $t has unit "Nm";
+    
+# insert a measure
+insert 
+    $m isa measure; $m 107.69; $m has unit "cm2";
+
+# match out a unit, escape the slash
+match $u isa unit; $u "N//m2";
+
+match $u isa unit; $u has uname "pressure";
+
+# convert measure
+match
+    $m isa measure; $m 107.69; $m has unit $u; $u "cm2";
+    $conv (source: $u) isa convert,
+        has quantity $quant,
+        has unit $base; get $quant, $base;
+
+#------------------------------------------
+# 1.B: Composite Attributes Usage
+# Temporal Example - Date-Time Strings
+# Assume the following schema
+define
+    # quantities, with independent indexes
+    day sub attribute, value integer, owns unit;
+    mth sub attribute, value integer, owns unit;
+    yr sub attribute, value integer, owns unit;
+    hr sub attribute, value integer, owns unit;
+    min sub attribute, value integer, owns unit;
+    sec sub attribute, value integer, owns unit;
+    ms sub attribute, value integer, owns unit;
+    
+    time sub attribute, has value datetime
+        owns day,
+        owns mth,
+        owns yr,
+        owns hr,
+        owns min,
+        owns sec,
+        owns ms;
+
+#
+# Then the query to insert a single date time
+# assuming the indexes have already been imported
+# with their own units, looks like the following
+
+match $day isa day; $day 21; 
+        $mth isa mth; $mth 07;
+        $yr isa yr; $yr 1969; 
+        $hr isa hour; $hr 2; 
+        $min isa min; $min 56; 
+        $sec isa sec; $sec 30; 
+        $msec isa ms; $msec 456; 
+insert $time isa time; $time "1969-07-21 02:56:30.456";
+        $time has $day;
+        $time has $mth;
+        $time has $yr;
+        $time has $hr;
+        $time has $min;
+        $time has $sec;
+        $time has $msec;
+
+# ==============================================
+# --------------------------------------------
+# Units Schema Definition
+# -------------------------------------------
+define
+    # Dimensions
+    dim_t sub attribute, value long;    # base unit: s,   time
+    dim_l sub attribute, value long;    # base unit: m,   length
+    dim_m sub attribute, value long;    # base unit: kg,  mass
+    dim_i sub attribute, value long;    # base unit: A,   current
+    dim_k sub attribute, value long;    # base unit: °C,  thermodynamic temp.
+    dim_n sub attribute, value long;    # base unit: mol, amount of substance
+    dim_j sub attribute, value long;    # base unit: cd,  luminous intensity
+    dim_r sub attribute, value long;    # base unit: rad, for radian angles
+    # Add in application specific dimensions
+
+    dimension_type sub attribute, value string,
+        owns dim_t,
+        owns dim_l,
+        owns dim_m,
+        owns dim_i,
+        owns dim_k,
+        owns dim_n,
+        owns dim_j,
+        owns dim_r;
+        # Add in application-specific dimensions
+
+    # Dimensionless quantities like a Mach number or Reynolds number has values
+    # of zero for all dimesion parts but is given a name like "reynolds." This
+    # allow types of dimensionless quantities to be distinguished
+
+    # Unit Conversion
+    c_ratio sub attribute, value double;
+    c_logbase sub attribute, value double;
+    c_offset sub attribute, value double;
+
+    # Units
+    uname sub attribute, value string;       # eg, "centimeter"
+    isCore sub attribute, value boolean; #boolean of is unit a core?
+    latex_string sub attribute, value string;   # latex string of unit
+
+    unit sub attribute, value string,
+        owns uname,
+        owns isCore
+        owns latex_string,
+        owns c_ratio,
+        owns dimension_type,
+        plays core_converstion:core,
+        plays core_converstion:scaled;
+
+    log_unit sub unit,
+        owns c_logbase;
+
+    affine_unit sub unit,
+        owns c_offset;
+
+    # Other types of sub-units
+    # datetime_unit sub unit, ...
+    # geo_unit sub unit, ...
+
+    ## Relations ---------------------------------------------------------------
+    core_conversion sub relation,
+        relates core,
+        relates scaled;
+   
+
+    # finally for the measured quantity
+    measure sub attribute, value double,
+        owns unit; # Note qkinds not imported 
+
+
+    # TODO: Modify to work with version 2
+    # Convert: rule 1 -> Set relation body
+    # rule convert-measure-1:
+    #     when {
+    #         $m isa measure, has units $u;
+    #     } then {
+    #         $convert (source: $m) isa convert;
+    #     };
+
+    # Convert: rule 2 -> Set conversion units
+    # rule convert-measure-2:
+    #     when {
+    #         $m isa measure, has units $u;
+    #         $convert (source: $m) isa convert;
+    #         $dim (source: $u, core: $c) isa dimension;
+    #     } then {
+    #         $convert (source: $m) isa convert, 
+    #             has unit $b;
+    #     };
+
+    # Convert: rule 3
+    # rule convert-measure-3:
+    #     when {
+    #         $m isa measure, has units $u;
+    #         $dim (source: $u, core: $c) isa dimension;
+    #         $convert (source: $m) isa convert, has unit $c;
+    #         $u has ctype "simple";
+    #         $u has c_first $cf;
+    #         $quant = $m * $cf;
+    #     } then {
+    #         $convert (source: $m) isa convert,
+    #             has quantity $quant;
+    #     };
+    
+
+
+
+        
+
+
+
+
+
+    

@@ -1,0 +1,25 @@
+# find the measures with units
+match 
+    $x isa measure, has unit $u;
+
+# find the unit m
+match
+    $unit isa unit; $unit "m";
+            has uname $uname,
+            has prefix $prefix,
+            has c_ratio $c_ratio, 
+            has isCore $isCore,
+            has latex_string $latex_string,
+            has dimension_type $dimension_type;
+    
+# find the unit mm, connected to the base unit m
+# TODO: double check this
+match
+    $unit isa unit; $unit "mm";
+            has uname $uname,
+            has c_ratio $c_ratio, 
+            has isCore $isCore,
+            has latex_string $latex_string,
+            has dimension_type $dimension_type;
+    $cc (core:$core, scaled:$unit) isa core_converstion,
+    $core isa unit; $core "m"

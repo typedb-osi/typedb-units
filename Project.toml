@@ -1,0 +1,4 @@
+[deps]
+CSV = "336ed68f-0bac-5ca0-87d4-7b16caf5d00b"
+Formatting = "59287772-0a20-5a39-b81b-1366585eb4c0"
+TypeDBClient = "7ffdda62-db04-4838-9798-febd00f3125c"

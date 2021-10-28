@@ -1,0 +1,17 @@
+unit,uname,prefix,c_ratio,c_logbase,c_offset,isCore,latex_string,dimension_type,core
+mm,millimetre,m,0.001,0,0,FALSE,$mm$',length,m
+cm,centimetre,c,0.01,0,0,FALSE,$cm$',length,m
+km,kilometre,k,1000,0,0,FALSE,$km$',length,m
+nm,nanometre,n,0.000000001,0,0,FALSE,$nm$',length,m
+pm,picometre,p,0.000000000001,0,0,FALSE,$pm$',length,m
+micron,micrometre,u,0.000001,0,0,FALSE,$\mu m$',length,m
+gm,gram,,0.001,0,0,FALSE,$gm$',mass,kg
+t,tonne,,1000,0,0,FALSE,$t$',mass,kg
+degC,degree Celsius,,1.00,0,273.15,FALSE,$\textdegree{}C$',Celsius temperature,k
+deg,degree Angle,,0.017453293,0,0,FALSE,$\textdegree{}$',degree angle,rad
+in,inch,,39.370,0,0,FALSE,$in$',length,m
+ft,foot,,3.280839895,0,0,FALSE,$ft$',length,m
+mile,foot,,0.000621373,0,0,FALSE,$mile$',length,m
+in2,inch squared,,1550.0031,0,0,FALSE,$in^2$',area,m2
+ft2,foot squared,,10.76391505,0,0,FALSE,$ft^2$',area,m2
+dB,decibel,d,1,10,0,FALSE,$dB$',power,W
