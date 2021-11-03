@@ -1,0 +1,6 @@
+unit,uname,utype,ctype,c_first,c_second,isCore,latex_string,description,dim-t,dim-l,dim-m,dim-i,dim-k,dim-n,dim-j,dim-r,dim-c,core
+in,inch,imperial,simple,39.370,0,FALSE,$in$',"length - imperial, inch",0,1,0,0,0,0,0,0,0,m
+ft,foot,imperial,simple,3.280839895,1,FALSE,$ft$',"length - imperial, foot",0,1,0,0,0,0,0,0,0,m
+mile,foot,imperial,simple,0.000621373,2,FALSE,$mile$',"length - imperial, mile",0,1,0,0,0,0,0,0,0,m
+in2,inch squared,imperial,simple,1550.0031,3,FALSE,$in^2$',"area - imperial, inches squared",0,2,0,0,0,0,0,0,0,m2
+ft2,foot squared,imperial,simple,10.76391505,4,FALSE,$ft^2$',"area - imperial, inches squared",0,2,0,0,0,0,0,0,0,m2

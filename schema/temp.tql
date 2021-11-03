@@ -1,0 +1,92 @@
+define
+    person_id sub attribute, value string;
+    person_gender sub attribute, value string;
+    person_age sub attribute, value long;
+    person_birthyear sub attribute, value string;
+    company_id sub attribute, value string;
+    company_name sub attribute, value string;
+    position_id sub attribute, value string;
+    position_name sub attribute, value string;
+    position_function sub attribute, value string;
+    position_upc sub attribute, value string;
+    department_id sub attribute, value string;
+    department_name sub attribute, value string;
+    employment_number sub attribute, value string;
+    employment_status sub attribute, value string;
+    employment_start_date sub attribute, value datetime;
+    employment_end_date sub attribute, value datetime;
+
+
+    Person sub composite, 
+    where {
+        person isa entity ,
+            owns person_id,
+            owns person_gender,
+            owns person_age,
+            owns person_birthyear,
+            plays employment:employee,
+            plays membership:member; 
+    }
+        
+    
+    Company sub composite, 
+    where {
+        company isa entity ,
+            owns company_id,
+            owns company_name,
+            plays employment:employer,
+            plays company_hierarchy:superior_company; 
+    }
+        
+
+    Position sub composite, 
+    where {
+        position isa entity ,
+            owns position_id,
+            owns position_name,
+            owns position_function,
+            owns position_upc,
+            plays employment:offered_position; 
+    }
+
+    Department sub composite, 
+    where {
+        department isa entity ,
+            owns department_id,
+            owns department_name,
+            plays membership:union,
+            plays company_hierarchy:subordinate_department;
+    }
+    
+
+    Department sub composite, 
+    where {
+        employment sub relation,
+            owns employment_number,
+            owns employment_start_date,
+            owns employment_end_date,
+            owns employment_status.
+            relates employee,
+            relates enployer,
+            relates offered_position;     
+    }
+
+    membership sub relation,
+        relates member,
+        relates union;
+
+    company_hierarchy sub relation,
+        relates superior_company,
+        relates subordinate_department;
+
+
+    match
+        $Person isa Person(person_gender: "male");
+        $Company isa Company(company_name: "Facebook");
+        $Position isa Position();
+        $Department isa Department();
+        $Employment (employee:$Person, employer:$Company,offered_position:$Position) isa Employment();
+        (superior_company:$Company, subordinate_department:$Department) isa company_hierarchy;
+        (member:$Person, union:$Department) isa membership;
+    get
+        $Person, $Company, $Position, $Department, $Employment

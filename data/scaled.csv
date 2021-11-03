@@ -1,0 +1,9 @@
+unit,uname,utype,ctype,c_first,c_second,isCore,latex_string,description,dim-t,dim-l,dim-m,dim-i,dim-k,dim-n,dim-j,dim-r,dim-c,core
+mm,millimetre,si,simple,0.001,0,FALSE,$mm$',length,0,1,0,0,0,0,0,0,0,m
+cm,centimetre,si,simple,0.01,0,FALSE,$cm$',length,0,1,0,0,0,0,0,0,0,m
+km,kilometre,si,simple,1000,0,FALSE,$km$',length,0,1,0,0,0,0,0,0,0,m
+nm,nanometre,si,simple,0.000000001,0,FALSE,$nm$',length,0,1,0,0,0,0,0,0,0,m
+pm,picometre,si,simple,0.000000000001,0,FALSE,$pm$',length,0,1,0,0,0,0,0,0,0,m
+micron,micrometre,si,simple,0.000001,0,FALSE,$\mu m$',length,0,1,0,0,0,0,0,0,0,m
+gm,gram,si,simple,0.001,0,FALSE,$gm$',mass,0,0,1,0,0,0,0,0,0,kg
+t,tonne,si,simple,1000,0,FALSE,$t$',mass,0,0,1,0,0,0,0,0,0,kg

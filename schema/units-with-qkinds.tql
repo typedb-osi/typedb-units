@@ -1,0 +1,74 @@
+# ==============================================
+# --------------------------------------------
+# Schema Definition
+# -------------------------------------------
+define
+# how should it look - Attribute-Led Prototype
+# first start with the uname definition
+    unit sub attribute, value string; # unit designator "cm2", "kg/m2"
+
+    # then additional attribute definitions
+    c_first sub attribute, value double; # mostly a ratio for conversion
+    c_second sub attribute, value double; # offset, log base, max value or null
+    uname sub attribute, value string; # common name of unit
+    qkind sub attribute, value string; # name of quantity kind
+    latex_string sub attribute, value string; # latex string of unit
+    description sub attribute, value string; # description of unit
+    isCore sub attribute, value boolean; #boolean of is unit a base?
+    ctype sub attribute, value string, # enum of unit conversion type
+            regex "^(simple|log|affine|time)$";
+    utype sub attribute, value string, # enum of unit type
+            regex "^(si|imperial|geo|timestamp)$";
+
+    
+
+    # simple units only convert with ratios
+    # affine units require a 2nd varaiable, an offset
+    # time units require a 2nd variable, an end variable
+    unit_details sub relation,  # name of the unit
+            owns unit @key, # only one record for any unit
+            owns uname,  #name of unit
+            owns utype, # enum of type of unit
+            owns ctype, # enum of conversion type
+            owns c_first, # mostly a ratio
+            owns c_second, # offset, log base, max value or null
+            owns isCore, # can be compound base
+            owns latex_string,
+            owns description,
+            relates dimensions,
+            relates kind, 
+            relates core, 
+            plays unit_details:core;
+    
+# then for dimensions, store the exponent of the dimension vector
+# and carry the unit string as a key
+    dimension sub attribute, value long, 
+        owns unit @key,
+        plays unit_details:dimensions,
+        plays quantity_kind:dimensions,
+        abstract;
+
+    dim-t sub dimension;  # base unit: s,   time
+    dim-l sub dimension;  # base unit: m,   length
+    dim-m sub dimension;  # base unit: kg,  mass
+    dim-i sub dimension;  # base unit: A,   current
+    dim-k sub dimension;  # base unit: °C,  thermodynamic temperature (normally abbreviated Θ)
+    dim-n sub dimension;  # base unit: mol, amount of substance
+    dim-j sub dimension;  # base unit: cd,  luminous intensity
+    dim-r sub dimension; # base unit for radian angles
+    dim-c sub dimension; # base unit for composition ratio
+
+    # if quantity kinds are desired, and are imported, then
+    quantity_kind sub relation,
+        owns qkind @key, # name of quantity kind
+        owns description,
+        plays unit_details:kind,
+        relates dimensions,
+        relates core;
+
+# finally for the measured quantity
+    measure sub attribute, value double,
+        owns unit,
+        owns qkind; # Note qkinds not imported 
+
+    

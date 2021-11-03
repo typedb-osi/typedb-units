@@ -1,0 +1,34 @@
+# find the measures with units
+match 
+    $x isa measure, has unit $u;
+
+# find the unit m
+match
+    $unit isa unit; $unit "m";
+    $unit_details(dimensions:$dim) isa unit_details,
+            has unit $unit,
+            has uname $uname,
+            has utype $utype,
+            has ctype $ctype,
+            has c_first $c_first, 
+            has c_second $c_second,
+            has isCore $isCore,
+            has latex_string $latex_string,
+            has description $description;
+    
+# find the unit mm, connected to the core unit m
+match
+    $unit isa unit; $unit "mm";
+    $core (dimensions:$dimb) isa unit_details,
+            has unit $unitb,
+            has uname $unameb;
+    $unit_details(dimensions:$dim, core:$core) isa unit_details,
+            has unit $unit,
+            has uname $uname,
+            has utype $utype,
+            has ctype $ctype,
+            has c_first $c_first, 
+            has c_second $c_second,
+            has isCore $isCore,
+            has latex_string $latex_string,
+            has description $description;

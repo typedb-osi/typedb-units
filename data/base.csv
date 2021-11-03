@@ -1,0 +1,11 @@
+unit,uname,utype,ctype,c_first,c_second,isCore,latex_string,description,dim-t,dim-l,dim-m,dim-i,dim-k,dim-n,dim-j,dim-r,dim-c
+m,metre,si,simple,1,0,TRUE,$m$',length,0,1,0,0,0,0,0,0,0
+kg,kilogram,si,simple,1,0,TRUE,$kg$',mass,0,0,1,0,0,0,0,0,0
+s,second,si,simple,1,0,TRUE,$s$',time,1,0,0,0,0,0,0,0,0
+A,ampere,si,simple,1,0,TRUE,$A$',electric current,0,0,0,1,0,0,0,0,0
+k,kelvin,si,simple,1,0,TRUE,$kg$',thermodynamic temperature,0,0,0,0,1,0,0,0,0
+mol,mole,si,simple,1,0,TRUE,$mol$',amount of substance,0,0,0,0,0,1,0,0,0
+cd,candela,si,simple,1,0,TRUE,$cd$',luminous intensity,0,0,0,0,0,0,1,0,0
+rad,radian,si,nondim,1,0,TRUE,$rad$',plane angle,0,0,0,0,0,0,0,1,0
+kg/kg,kg per kg,si,nondim,1,0,TRUE,$\frac{kg}{kg}$',mass fraction composition,0,0,0,0,0,0,0,0,1
+m3/m3,m3 per m3,si,nondim,1,0,TRUE,$\frac{m^3}{m^3}$',volume fraction composition,0,0,0,0,0,0,0,0,1

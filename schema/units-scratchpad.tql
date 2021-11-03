@@ -1,0 +1,203 @@
+#==========================================
+#---------------------------------------------
+# 1. Start with Example Usage
+# Assume units are imported before data
+# 1.A: BAsic
+match   
+    $c isa car, has torque $t;
+    $t > 1200; $t has unit "Nm";
+    
+# insert a measure
+insert 
+    $m isa measure; $m 107.69; $m has unit "cm2";
+
+# match out a unit, escape the slash
+match $u isa unit; $u "N//m2";
+
+match $u isa unit; $u has uname "pressure";
+
+# convert measure
+match
+    $m isa measure; $m 107.69; $m has unit $u; $u "cm2";
+    $conv (source: $u) isa convert,
+        has quantity $quant,
+        has unit $core; get $quant, $core;
+
+#------------------------------------------
+# 1.B: Composite Attributes Usage
+# Temporal Example - Date-Time Strings
+# Assume the following schema
+define
+    # quantities, with independent indexes
+    day sub attribute, value integer, owns unit;
+    mth sub attribute, value integer, owns unit;
+    yr sub attribute, value integer, owns unit;
+    hr sub attribute, value integer, owns unit;
+    min sub attribute, value integer, owns unit;
+    sec sub attribute, value integer, owns unit;
+    ms sub attribute, value integer, owns unit;
+    
+    time sub attribute, has value datetime
+        owns day,
+        owns mth,
+        owns yr,
+        owns hr,
+        owns min,
+        owns sec,
+        owns ms;
+
+#
+# Then the query to insert a single date time
+# assuming the indexes have already been imported
+# with their own units, looks like the following
+
+match $day isa day; $day 21; 
+        $mth isa mth; $mth 07;
+        $yr isa yr; $yr 1969; 
+        $hr isa hour; $hr 2; 
+        $min isa min; $min 56; 
+        $sec isa sec; $sec 30; 
+        $msec isa ms; $msec 456; 
+insert $time isa time; $time "1969-07-21 02:56:30.456";
+        $time has $day;
+        $time has $mth;
+        $time has $yr;
+        $time has $hr;
+        $time has $min;
+        $time has $sec;
+        $time has $msec;
+
+# ==============================================
+# --------------------------------------------
+# Units Schema Definition
+# -------------------------------------------
+define
+# how should it look - Attribute-Led Prototype
+# first start with the uname definition
+    unit sub attribute, value string; # unit designator "cm2", "kg/m2"
+
+    # then additional attribute definitions
+    c_first sub attribute, value double; # mostly a ratio for conversion
+    c_second sub attribute, value double; # offset, log base, max value or null
+    uname sub attribute, value string; # common name of unit
+    latex_string sub attribute, value string; # latex string of unit
+    description sub attribute, value string; # description of unit
+    isCore sub attribute, value boolean; #boolean of is unit a core?
+    ctype sub attribute, value string, # enum of unit conversion type
+            regex "^(simple|log|affine|time|nondim)$";
+    utype sub attribute, value string, # enum of unit type
+            regex "^(si|imperial|geo|timestamp)$";
+
+    
+
+    # simple units only convert with ratios
+    # affine units require a 2nd varaiable, an offset
+    # time units require a 2nd variable, an end variable
+    unit_details sub relation,  # name of the unit
+            owns unit @key, # only one record for any unit
+            owns uname,  #name of unit
+            owns utype, # enum of type of unit
+            owns ctype, # enum of conversion type
+            owns c_first, # mostly a ratio
+            owns c_second, # offset, log base, max value or null
+            owns isCore, # can be compound core
+            owns latex_string,
+            owns description,
+            relates dimensions,
+            relates core, 
+            plays unit_details:core;
+    
+# then for dimensions, store the exponent of the dimension vector
+# and carry the unit string as a key
+    dimension sub attribute, value long, 
+        owns unit ,
+        plays unit_details:dimensions,
+        abstract;
+
+    dim-t sub dimension;  # base unit: s,   time
+    dim-l sub dimension;  # base unit: m,   length
+    dim-m sub dimension;  # base unit: kg,  mass
+    dim-i sub dimension;  # base unit: A,   current
+    dim-k sub dimension;  # base unit: °C,  thermodynamic temperature (normally abbreviated Θ)
+    dim-n sub dimension;  # base unit: mol, amount of substance
+    dim-j sub dimension;  # base unit: cd,  luminous intensity
+    dim-r sub dimension; # base unit for radian angles
+    dim-c sub dimension; # base unit for composition ratio
+
+    
+
+# finally for the measured quantity
+    measure sub attribute, value double,
+        owns unit; # Note qkinds not imported 
+
+# ===========================================================================
+#----- Ealier work, needs checking
+
+    # there are four types of tolerances and depending on
+    # whether they are a limit or not, or whether they are
+    # a fraction or absolute value, depends on what to do with the
+    # upper and lower numbers
+    upper sub attribute, value double;
+    lower sub attribute, value double;
+    tolerance sub attribute, value string,
+           regex "^(rel-offset|rel-limits|abs-offset|abs-limits)$",
+           owns upper,
+           owns lower; 
+
+    # the measure attribute, with a condition
+    condition sub attribute, value string;
+    measure sub attribute, value double,
+            owns unit,
+            owns condition,
+            owns tolerance,
+            plays convert:source;
+
+    # the convert value to core SI unit relation
+    convert sub relation,
+            owns quantity,
+            owns unit,
+            relates source;
+
+    # Convert: rule 1 -> Set relation body
+    rule convert-measure-1:
+        when {
+            $m isa measure, has units $u;
+        } then {
+            $convert (source: $m) isa convert;
+        };
+
+    # Convert: rule 2 -> Set conversion units
+    rule convert-measure-2:
+        when {
+            $m isa measure, has units $u;
+            $convert (source: $m) isa convert;
+            $dim (source: $u, core: $c) isa dimension;
+        } then {
+            $convert (source: $m) isa convert, 
+                has unit $b;
+        };
+
+    # Convert: rule 3
+    rule convert-measure-3:
+        when {
+            $m isa measure, has units $u;
+            $dim (source: $u, core: $b) isa dimension;
+            $convert (source: $m) isa convert, has unit $b;
+            $u has ctype "simple";
+            $u has c_first $cf;
+            $quant = $m * $cf;
+        } then {
+            $convert (source: $m) isa convert,
+                has quantity $quant;
+        };
+    
+
+
+
+        
+
+
+
+
+
+    
